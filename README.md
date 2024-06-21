@@ -1,2 +1,2 @@
 # s21_SimpleBashUtils
-Implementation of the SimpleBashUtils project from school 21.
+Implementation of the cat and grep utilities in C.
