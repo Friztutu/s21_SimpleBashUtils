@@ -166,7 +166,13 @@ int ProcessText(struct InputData* input_data) {
       printf("   %d  ", line_number++);
     }
 
-    printf("%s", input_data->buffer);
+    for (int i = 0; i < strlen(input_data->buffer); i++) {
+      if (input_data->options.t_flag && input_data->buffer[i] == '\t') {
+        printf("^I");
+      } else {
+        printf("%c", input_data->buffer[i]);
+      }
+    }
 
     if (input_data->options.e_flag) {
       printf("$");
