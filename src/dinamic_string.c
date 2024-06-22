@@ -14,8 +14,3 @@ char* append(char* old_string, int size, int step) {
 
   return new_string;
 }
-
-void clear(char* string) {
-  free(string);
-  string = NULL;
-}

@@ -19,6 +19,8 @@ check_code_style:
 	clang-format -n src/*.c include/*.h
 	mv .clang-format linter/.
 
+cppcheck:
+	cppcheck --enable=all --suppress=missingIncludeSystem src/*.c include/*.h
 clean:
 	rm -rf src/*.o bin/*.out
 
