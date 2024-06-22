@@ -7,12 +7,35 @@ int main(int argc, char* argv[]) {
   }
 
   struct InputData input_data;
+  input_data.options.b_flag = false;
+  input_data.options.t_flag = false;
+  input_data.options.n_flag = false;
+  input_data.options.s_flag = false;
+  input_data.options.e_flag = false;
+  input_data.options.v_flag = false;
 
   if (ParseCommandLineOptions(argc, argv, input_data) == 1) {
     return 0;
   }
 
   UnmarkUselessOptions(input_data);
+
+  char* filename = GetFilename(argc, argv, true);
+  bool no_files = filename[0] == '\0';
+
+  if (no_files) {
+    fprintf(stderr, "cat: illegal option\nusage: cat [option...] [file ...]");
+  }
+
+  while (!no_files) {
+    if (ProcessText(filename, input_data) == 1) {
+      fprintf(stderr, "cat: %s: No such file or directory", filename);
+    }
+    char* filename = GetFilename(argc, argv, false);
+    no_files = filename[0] == '\0';
+  }
+
+  free(filename);
 
   return 0;
 }
@@ -110,4 +133,72 @@ void UnmarkUselessOptions(struct InputData input_data) {
   if (input_data.options.b_flag) {
     input_data.options.n_flag = false;
   }
+}
+
+int ProcessText(char* filename, struct InputData input_data) {
+  FILE* file = fopen(filename, "r");
+
+  if (file == NULL) {
+    return 1;
+  }
+
+  bool* end_file = false;
+  bool previous_empty = false, is_empty = false;
+  int line_number = 1;
+  char* buffer = ReadStringFromFile(file, end_file);
+
+  while (!end_file) {
+    is_empty = buffer[0] == '\n';
+
+    if (input_data.options.s_flag && previous_empty && is_empty) continue;
+
+    if (input_data.options.b_flag && !is_empty) {
+      printf("\t%d  ", line_number);
+    }
+
+    if (input_data.options.n_flag) {
+      printf("\t%d  ", line_number);
+    }
+
+    printf("%s", buffer);
+
+    if (input_data.options.e_flag) {
+      printf("$");
+    }
+
+    printf("\n");
+
+    line_number++;
+    free(buffer);
+    buffer = ReadStringFromFile(file, end_file);
+  }
+
+  fclose(file);
+  free(buffer);
+  free(filename);
+
+  return 0;
+}
+
+char* ReadStringFromFile(FILE* file, bool* end_file) {
+  char c;
+  int index = 0, size = 31;
+  char* buffer = malloc(sizeof(char) * 31);
+
+  while ((c = fgetc(file)) != EOF && c != '\n') {
+    if (index == size - 2) {
+      buffer = append(buffer, size, 30);
+      size += 30;
+    }
+
+    buffer[index++] = c;
+  }
+
+  if (c == EOF) {
+    *end_file = true;
+  }
+
+  buffer[index] = '\0';
+
+  return buffer;
 }

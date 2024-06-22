@@ -1,14 +1,18 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-char* append(char* old_string, int step) {
-  char* new_string = malloc(sizeof(char) * (strlen(old_string) + 1 + step));
+// TODO: поправить всякое
+char* append(char* old_string, int size, int step) {
+  char* new_string = malloc(sizeof(char) * (size + step));
 
-  for (int i = 0; i < strlen(old_string); i++) {
+  for (int i = 0; i < size - 2; i++) {
     new_string[i] = old_string[i];
   }
 
   free(old_string);
+
+  return new_string;
 }
 
 void clear(char* string) {
