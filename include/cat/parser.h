@@ -1,15 +1,11 @@
-#ifndef INCLUDE_S21_CAT
-#define INCLUDE_S21_CAT
+#ifndef INCLUDES_STRUCTURES_H
+#define INCLUDES_STRUCTURES_H
 
 #include <getopt.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "dinamic_string.h"
-
-#define START_SIZE_BUFFER 100
 
 struct Options {
   bool b_flag;
@@ -35,11 +31,4 @@ int ParseCommandLineOptions(int argc, char* argv[],
 
 char* GetFilename(int argc, char* argv[], bool first_time);
 
-void UnmarkUselessOptions(struct InputData* input_data);
-
-int ProcessText(struct InputData* input_data);
-
-char* ReadStringFromFile(FILE* file, bool* end_file);
-
-void SetUpStruct(struct InputData* input_data);
 #endif
