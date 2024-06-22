@@ -28,16 +28,18 @@ struct InputData {
   struct Options options;
 };
 
-int ValidateCommandLineOptions(char opt, struct InputData input_data);
+int ValidateCommandLineOptions(char opt, struct InputData* input_data);
 
 int ParseCommandLineOptions(int argc, char* argv[],
-                            struct InputData input_data);
+                            struct InputData* input_data);
 
 char* GetFilename(int argc, char* argv[], bool first_time);
 
-void UnmarkUselessOptions(struct InputData input_data);
+void UnmarkUselessOptions(struct InputData* input_data);
 
-int ProcessText(char* filename, struct InputData input_data);
+int ProcessText(struct InputData* input_data);
 
 char* ReadStringFromFile(FILE* file, bool* end_file);
+
+void SetUpStruct(struct InputData* input_data);
 #endif

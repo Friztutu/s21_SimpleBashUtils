@@ -2,7 +2,4 @@
 #define SRC_DINAMIC_STRING
 
 char* append(char* old_string, int size, int step);
-
-void clear(char* string);
-
 #endif
