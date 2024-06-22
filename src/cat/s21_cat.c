@@ -37,6 +37,10 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 
+/**
+ * @brief Sets initial values
+ * @param [out] input_data InputData*, structure for storing input data.
+ */
 void SetUpStruct(struct InputData* input_data) {
   input_data->options.b_flag = false;
   input_data->options.t_flag = false;
@@ -46,12 +50,21 @@ void SetUpStruct(struct InputData* input_data) {
   input_data->options.v_flag = false;
 }
 
+/**
+ * @brief Clears flag n if flag b is given, since flag b has priority.
+ * @param [out] input_data InputData*, structure for storing input data.
+ */
 void UnmarkUselessOptions(struct InputData* input_data) {
   if (input_data->options.b_flag) {
     input_data->options.n_flag = false;
   }
 }
 
+/**
+ * @brief Processes the specified text depending on the passed parameters.
+ * @param [in] input_data InputData*, structure for storing input data.
+ * @return 0 - Ok, 1 - file does not open.
+ */
 int ProcessText(struct InputData* input_data) {
   FILE* file = fopen(input_data->filename, "r");
 
@@ -99,6 +112,12 @@ int ProcessText(struct InputData* input_data) {
   return 0;
 }
 
+/**
+ * @brief Reads one line from a file.
+ * @param [in] file FILE*.
+ * @param [out] end_file bool*, end of file flag.
+ * @return Char*, line for file.
+ */
 char* ReadStringFromFile(FILE* file, bool* end_file) {
   int c;
   int index = 0, size = 31;
