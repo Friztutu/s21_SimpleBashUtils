@@ -36,4 +36,8 @@ int ParseCommandLineOptions(int argc, char* argv[],
 char* GetFilename(int argc, char* argv[], bool first_time);
 
 void UnmarkUselessOptions(struct InputData input_data);
+
+int ProcessText(char* filename, struct InputData input_data);
+
+char* ReadStringFromFile(FILE* file, bool* end_file);
 #endif
