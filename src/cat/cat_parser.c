@@ -1,4 +1,4 @@
-#include "../../include/cat/parser.h"
+#include "../../include/cat/cat_parser.h"
 
 /**
  * @brief Validates the parameters passed to the program,

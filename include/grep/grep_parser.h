@@ -1,5 +1,5 @@
-#ifndef INCLUDES_STRUCTURES_H
-#define INCLUDES_STRUCTURES_H
+#ifndef INCLUDES_GREP_PARSER
+#define INCLUDES_GREP_PARSER
 
 #include <getopt.h>
 #include <stdbool.h>
@@ -8,19 +8,23 @@
 #include <string.h>
 
 struct Options {
-  bool b_flag;
-  bool v_flag;
   bool e_flag;
+  bool i_flag;
+  bool v_flag;
+  bool c_flag;
+  bool l_flag;
   bool n_flag;
+  bool h_flag;
   bool s_flag;
-  bool t_flag;
-  bool without_flags;
+  bool f_flag;
+  bool o_flag;
+
+  int num_of_f_flag;
 };
 
 struct InputData {
   char* filename;
-  char* buffer;
-  bool input_from_file;
+  char* regex_filename;
   struct Options options;
 };
 
@@ -31,4 +35,5 @@ int ParseCommandLineOptions(int argc, char* argv[],
 
 char* GetFilename(int argc, char* argv[], bool first_time);
 
+char* GetRegexFilename(int argc, char* argv[], bool first_time);
 #endif

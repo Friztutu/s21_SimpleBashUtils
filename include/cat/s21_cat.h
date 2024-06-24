@@ -8,7 +8,7 @@
 #include <string.h>
 
 #include "../dinamic_string.h"
-#include "parser.h"
+#include "cat_parser.h"
 
 void UnmarkUselessOptions(struct InputData* input_data);
 
