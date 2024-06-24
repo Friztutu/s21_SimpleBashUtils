@@ -7,5 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+void SetUpStruct(InputData* input_data);
+
 #include "grep_parser.h"
 #endif
